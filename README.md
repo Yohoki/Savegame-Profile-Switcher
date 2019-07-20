@@ -4,6 +4,7 @@ Simple .bat file for use with Launchbox to switch savegames for games that don't
 # Usage
 ## Launchbox
 > Launchbox Prep
+- Add "Profile.txt" file to your Savegame Folder
 - Right Click on your prefered game and click "Edit"
 - Click "Additional Apps" tab and "Add Application..."
 - Give it a name, like "Profile Swapper" to appear in the game's right click menu
@@ -14,6 +15,7 @@ Simple .bat file for use with Launchbox to switch savegames for games that don't
 - Follow onscreen prompts.
 
 ## As a Windows Shortcut
+- Add "Profile.txt" file to your Savegame Folder
 - Right click on a folder and select "New->Shortcut"
 - Add the Profile swapper .bat file as the target for the shortcut.
 - Right click the new shortcut and click "Properties"
