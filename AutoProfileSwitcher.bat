@@ -75,6 +75,12 @@ goto OPEN
 ::
 ::Planet Coaster Profile
 :PlanetCoaster
-set SaveDir="C:\Users\Yohoki\Saved Games\Frontier Developments\Planet Coaster\76561197993333907\"
+set SaveDir="C:\Users\%userprofile%\Saved Games\Frontier Developments\Planet Coaster\76561197993333907\"
 set SaveFldr=Saves
+Goto OPEN
+::
+::Assassin's Creed: Odyssey Profile
+:ACOdyssey
+set SaveDir="C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegame\<UplayID>\5059"
+set SaveFldr=saves
 Goto OPEN
