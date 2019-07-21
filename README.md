@@ -40,7 +40,7 @@ Currently, the only way to add new games to the list is to manually add these li
 ::Debug1 Profile
 if %Game%==Debug1 (
 set SaveDir="C:\DEBUG1"
-set SaveFldr=test )
+set SaveFldr=test)
 ~~~
 - 1st line is optional, it is just a comment to help keep track of games and will be removed later as I develop the app.
 - 2nd line is the name of the Commandline Parameter you want, for example Far Cry 5's is FarCry5. No spaces allowed here.
@@ -50,4 +50,4 @@ set SaveFldr=test )
   - set SaveDir="C:\Game"
 - 4rd line is the savegame folder's name.
   - If your savegame file is "C:/game/savefolder/save.txt" it should say:
-  - set SaveFldr=savefolder
+  - set SaveFldr=savefolder)
