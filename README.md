@@ -30,6 +30,7 @@ Simple .bat file for use with Launchbox to switch savegames for games that don't
 
 # Currently Supported Games
 Name of game === Commandline Parameter
+- Assassin's Creed: Odyssey === ACOdyssey
 - Far Cry 5 === FarCry5
 - Planet Coaster === PlanetCoaster
 
