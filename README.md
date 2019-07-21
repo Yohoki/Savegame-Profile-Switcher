@@ -35,16 +35,19 @@ Name of game === Commandline Parameter
 - Planet Coaster === PlanetCoaster
 
 # Adding New Games
-Currently, the only way to add new games to the list is to manually add these lines to the end of the program
+Currently, the only way to add new games to the list is to manually add these lines to the GameConfig.bat file. (right click->Edit)
 ~~~
-:Debug1
+::Debug1 Profile
+if %Game%==Debug1 (
 set SaveDir="C:\DEBUG1"
-set SaveFldr=test
-goto OPEN
+set SaveFldr=test )
 ~~~
-- The 1st line is the name of the Commandline Parameter you want, for example Far Cry 5's is FarCry5. No spaces allowed here.
-- 2nd line is the folder above your savegame folder. For example if your savegame is "C:/game/savefolder/save.txt" it should say:
+- 1st line is optional, it is just a comment to help keep track of games and will be removed later as I develop the app.
+- 2nd line is the name of the Commandline Parameter you want, for example Far Cry 5's is FarCry5. No spaces allowed here.
+  - if %Game%==FarCry5
+- 3rd line is the folder above your savegame folder.
+  - If your savegame is "C:/game/savefolder/save.txt" it should say:
   - set SaveDir="C:\Game"
-- 3rd line is the savegame folder's name. If your savegame file is "C:/game/savefolder/save.txt" it should say:
+- 4rd line is the savegame folder's name.
+  - If your savegame file is "C:/game/savefolder/save.txt" it should say:
   - set SaveFldr=savefolder
-- 4th line is always "goto OPEN"
