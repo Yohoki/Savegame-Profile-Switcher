@@ -3,9 +3,11 @@
 mode con: cols=35 lines=8
 :Initialize
 set Game=%1
+set Headed=1
 if %Game%.==. goto ERROR
 if %Game%==/h goto HEADLESS
-goto %Game%
+call GameConfig.bat
+goto OPEN
 ::
 ::Opening error "game not found"
 :ERROR
@@ -42,10 +44,12 @@ goto OPEN
 ::
 ::Headless Mode
 :HEADLESS
+mode con: cols=35 lines=9
 set Headed=0
 shift
 set Game=%1
-goto %Game%
+call GameConfig.bat
+goto OPEN
 :END
 if %Headed%==0 (
 cls
@@ -54,33 +58,3 @@ echo Profile swapped. Exiting...
 ping -n 11 localhost >nul
 )
 exit
-::
-::Debug1 Profile
-:Debug1
-set SaveDir="C:\DEBUG1"
-set SaveFldr=test
-goto OPEN
-::
-::Debug2 profile
-:Debug2
-set SaveDir="C:\DEBUG2"
-set SaveFldr=test
-goto OPEN
-::
-::FarCry5 Profile
-:FarCry5
-set SaveDir="C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames\"
-set SaveFldr=FarCry5
-goto OPEN
-::
-::Planet Coaster Profile
-:PlanetCoaster
-set SaveDir="C:\Users\%userprofile%\Saved Games\Frontier Developments\Planet Coaster\76561197993333907\"
-set SaveFldr=Saves
-Goto OPEN
-::
-::Assassin's Creed: Odyssey Profile
-:ACOdyssey
-set SaveDir="C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegame\<UplayID>\5059"
-set SaveFldr=saves
-Goto OPEN
