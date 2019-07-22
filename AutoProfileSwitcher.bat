@@ -9,6 +9,39 @@ if %Game%==/h goto HEADLESS
 call GameConfig.bat
 goto OPEN
 ::
+:ABOUT
+mode con: cols=110 lines=28
+echo Changes a game's current savegame profile, if the game does not allow such options
+echo. 
+echo AutoProfileSwapper.bat [^/a ^| ^/h] [GameID] [SaveDir] [SaveFldr]
+echo.
+echo   /a -------- Add a new game to the config file.
+echo   /h -------- Headless mode. Automatically switch profiles without user interaction.
+echo   GameID ---- Loads the selected Game from the Config file.
+echo                  When used with /a, adds the game ID to config file.
+echo   SaveDir --- Requires /a. Adds the specified folder as the location of gamesaves folder.
+echo                  Example: If Game1's savedata is at C:\Games\Game1\Saves\save01.sav
+echo                  SaveDir should be C:\Games\Game1
+echo   SaveFldr -- Requires /a. Adds the specified folder as the target folder for creating multiple profiles.
+echo               This folder contains the Savedata.
+echo                  Example: If Game1's savedata is at C:\Games\Game1\Saves\save01.sav
+echo                  SaveFldr should be Saves
+echo.
+echo Usage:
+echo.
+echo   AutoProfileSwapper.bat /h Game1
+echo      Switches profile for Game1 without user input
+echo   AutoProfileSwapper.bat Game1
+echo      Displays Current profile for Game1 and Asks user if they would like to switch.
+echo   AutoProfileSwapper.bat /a Game1 C:\Games\Game1 Saves
+echo      Adds Game1 as a new game in config file, with savegame folder set to C:\Games\Game1\Saves
+echo   AutoProfileSwapper.bat /a
+echo      Gives a prompt to add a new game to the config file.
+echo.
+pause
+cls
+exit
+::
 ::Opening error "game not found"
 :ERROR
 echo Error! Game %Game% not found!
