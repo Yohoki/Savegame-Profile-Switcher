@@ -5,6 +5,8 @@ mode con: cols=35 lines=8
 set Game=%1
 set Headed=1
 if %Game%.==. goto ERROR
+if %Game%==/help goto ABOUT
+if %Game%==/a goto ADDNEW
 if %Game%==/h goto HEADLESS
 call GameConfig.bat
 goto OPEN
@@ -83,6 +85,25 @@ shift
 set Game=%1
 call GameConfig.bat
 goto OPEN
+::
+::Add a new GameID to Config File
+:ADDNEW
+echo ^:^:%2 Profile - Auto Added>>GameConfig.bat
+echo if %%Game%%==%2 ^(>>GameConfig.bat
+echo set SaveDir="%3">>GameConfig.bat
+echo set SaveFldr=%4^)>>GameConfig.bat
+echo ===================================>%3\%4\Profile.txt
+echo        The Active Profile is>>%3\%4\Profile.txt
+echo ----------------------------------->>%3\%4\Profile.txt
+echo          Profile Name Here>>%3\%4\Profile.txt
+echo ----------------------------------->>%3\%4\Profile.txt
+echo           %2>>%3\%4\Profile.txt
+echo ===================================>>%3\%4\Profile.txt
+pause
+type %3\%4\Profile.txt
+pause
+::
+::Exit program
 :END
 if %Headed%==0 (
 cls
