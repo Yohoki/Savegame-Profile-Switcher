@@ -1,14 +1,17 @@
-::Initialize - set title and window properties
+::Initialize - set title and window properties, load parameters, etc.
+:Initialize
 @ECHO OFF
 mode con: cols=35 lines=8
-:Initialize
-set Game=%1
+setlocal enabledelayedexpansion
 set Headed=1
-if %Game%.==. goto ERROR
-if %Game%==/help goto ABOUT
-if %Game%==/a goto ADDNEW
-if %Game%==/h goto HEADLESS
-call GameConfig.bat
+if %1%.==. goto ERROR
+if %1%==/help goto ABOUT
+if %1%==/a goto ADDNEW
+if %1%==/h goto HEADLESS
+set Game=%1
+call :READINI AutoProfileSwapper.ini %Game% SaveDir SaveDir
+set insection=
+call :READINI AutoProfileSwapper.ini %Game% SaveFldr SaveFldr
 goto OPEN
 ::
 :ABOUT
@@ -51,6 +54,35 @@ echo Exiting in 5 seconds...
 ping -n 6 localhost >nul
 goto END
 ::
+::Get info from INI file
+:READINI <filename> <section> <key> <result>
+  set %~4=
+  setlocal
+  set insection=
+  for /f "usebackq eol=; tokens=*" %%a in ("%~1") do (
+    set line=%%a
+    if defined insection (
+      for /f "tokens=1,* delims==" %%b in ("!line!") do (
+        if /i "%%b"=="%3" (
+          endlocal
+          set %~4=%%c
+          goto :eof
+        )
+      )
+    )
+    if "!line:~0,1!"=="[" (
+      for /f "delims=[]" %%b in ("!line!") do (
+        if /i "%%b"=="%2" (
+          set insection=1
+        ) else (
+          endlocal
+          if defined insection goto :eof
+        )
+      )
+    )
+  )
+  endlocal
+::
 ::Opening sequence
 :OPEN
 title %Game% Detected
@@ -83,15 +115,18 @@ mode con: cols=35 lines=9
 set Headed=0
 shift
 set Game=%1
-call GameConfig.bat
+call :READINI AutoProfileSwapper.ini !Game! SaveDir SaveDir
+set insection=
+call :READINI AutoProfileSwapper.ini !Game! SaveFldr SaveFldr
 goto OPEN
 ::
 ::Add a new GameID to Config File
 :ADDNEW
-echo ^:^:%2 Profile - Auto Added>>GameConfig.bat
-echo if %%Game%%==%2 ^(>>GameConfig.bat
-echo set SaveDir="%3">>GameConfig.bat
-echo set SaveFldr=%4^)>>GameConfig.bat
+echo.>>AutoProfileSwapper.ini
+echo ^:^:%2 Profile - Auto Added>>AutoProfileSwapper.ini
+echo ^[%2^]>>AutoProfileSwapper.ini
+echo SaveDir="%3">>AutoProfileSwapper.ini
+echo SaveFldr=%4>>AutoProfileSwapper.ini
 echo ===================================>%3\%4\Profile.txt
 echo        The Active Profile is>>%3\%4\Profile.txt
 echo ----------------------------------->>%3\%4\Profile.txt
@@ -101,7 +136,9 @@ echo           %2>>%3\%4\Profile.txt
 echo ===================================>>%3\%4\Profile.txt
 pause
 type %3\%4\Profile.txt
+echo New GameID Added!
 pause
+goto END
 ::
 ::Exit program
 :END
