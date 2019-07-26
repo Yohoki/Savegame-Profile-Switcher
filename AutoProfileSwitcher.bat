@@ -59,7 +59,7 @@ goto END
   set %~4=
   setlocal
   set insection=
-  for /f "usebackq eol=; tokens=*" %%a in ("%~1") do (
+  for /f "usebackq eol=: tokens=*" %%a in ("%~1") do (
     set line=%%a
     if defined insection (
       for /f "tokens=1,* delims==" %%b in ("!line!") do (
@@ -122,6 +122,13 @@ goto OPEN
 ::
 ::Add a new GameID to Config File
 :ADDNEW
+::Check if GameID Exists
+set Game=%2
+for /f "tokens=1,* delims=[]" %%x in (AutoProfileSwapper.ini) do (
+	call :IDFOUND %%x
+)
+::if not exists, Create!
+mode con: cols=35 lines=9
 echo.>>AutoProfileSwapper.ini
 echo ^:^:%2 Profile - Auto Added>>AutoProfileSwapper.ini
 echo ^[%2^]>>AutoProfileSwapper.ini
@@ -134,11 +141,26 @@ echo          Profile Name Here>>%3\%4\Profile.txt
 echo ----------------------------------->>%3\%4\Profile.txt
 echo           %2>>%3\%4\Profile.txt
 echo ===================================>>%3\%4\Profile.txt
-pause
 type %3\%4\Profile.txt
 echo New GameID Added!
 pause
 goto END
+::
+::Test all GameIDs vs new GameID and stop from creating again
+:IDFOUND
+if %Game%==%1 (
+	mode con: cols=35 lines=8
+	cls
+	echo  =================================
+	echo     Error: Game already exists!
+	echo    -----------------------------
+	echo    GameID = %1
+	echo    Run this program without "/a"
+	echo  =================================
+	echo Exiting in 5 seconds...
+	ping -n 6 localhost >nul
+	goto END
+) else ( goto :eof )
 ::
 ::Exit program
 :END
