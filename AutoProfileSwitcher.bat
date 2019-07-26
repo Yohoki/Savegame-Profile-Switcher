@@ -134,14 +134,15 @@ echo ^:^:%2 Profile - Auto Added>>AutoProfileSwapper.ini
 echo ^[%2^]>>AutoProfileSwapper.ini
 echo SaveDir="%3">>AutoProfileSwapper.ini
 echo SaveFldr=%4>>AutoProfileSwapper.ini
-echo ===================================>%3\%4\Profile.txt
-echo        The Active Profile is>>%3\%4\Profile.txt
-echo ----------------------------------->>%3\%4\Profile.txt
-echo          Profile Name Here>>%3\%4\Profile.txt
-echo ----------------------------------->>%3\%4\Profile.txt
-echo           %2>>%3\%4\Profile.txt
-echo ===================================>>%3\%4\Profile.txt
-type %3\%4\Profile.txt
+cd /d %3
+echo ===================================>.\%4\Profile.txt
+echo        The Active Profile is>>.\%4\Profile.txt
+echo ----------------------------------->>.\%4\Profile.txt
+echo          Profile Name Here>>.\%4\Profile.txt
+echo ----------------------------------->>.\%4\Profile.txt
+echo           %2>>.\%4\Profile.txt
+echo ===================================>>.\%4\Profile.txt
+type .\%4\Profile.txt
 echo New GameID Added!
 pause
 goto END
