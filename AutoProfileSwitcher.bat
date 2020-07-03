@@ -65,7 +65,7 @@ goto END
       for /f "tokens=1,* delims==" %%b in ("!line!") do (
         if /i "%%b"=="%3" (
           endlocal
-          set %~4=%%c
+          set %~4=%%~c
           goto :eof
         )
       )
@@ -103,9 +103,9 @@ if %Headed%==0 (
 echo Swapping Profile...
 ping -n 11 localhost >nul
 )
-ren %SaveFldr% %SaveFldr%_
-ren %SaveFldr%Profile2 %SaveFldr%
-ren %SaveFldr%_ %SaveFldr%Profile2
+ren "%SaveFldr%" "%SaveFldr%_"
+ren "%SaveFldr%Profile2" "%SaveFldr%"
+ren "%SaveFldr%_" "%SaveFldr%Profile2"
 if %Headed%==0 goto END
 goto OPEN
 ::
@@ -130,8 +130,8 @@ for /f "tokens=1,* delims=[]" %%x in (AutoProfileSwapper.ini) do (
 ::if not exists, Create!
 mode con: cols=35 lines=9
 echo.>>AutoProfileSwapper.ini
-echo ^:^:%2 Profile - Auto Added>>AutoProfileSwapper.ini
 echo ^[%2^]>>AutoProfileSwapper.ini
+echo ^:^:%2 Profile - Auto Added>>AutoProfileSwapper.ini
 echo SaveDir="%3">>AutoProfileSwapper.ini
 echo SaveFldr=%4>>AutoProfileSwapper.ini
 cd /d %3
@@ -142,6 +142,14 @@ echo          Profile Name Here>>.\%4\Profile.txt
 echo ----------------------------------->>.\%4\Profile.txt
 echo           %2>>.\%4\Profile.txt
 echo ===================================>>.\%4\Profile.txt
+md %4Profile2
+echo ===================================>.\%4Profile2\Profile.txt
+echo        The Active Profile is>>.\%4Profile2\Profile.txt
+echo ----------------------------------->>.\%4Profile2\Profile.txt
+echo          Profile Name Here>>.\%4Profile2\Profile.txt
+echo ----------------------------------->>.\%4Profile2\Profile.txt
+echo           %2>>.\%4Profile2\Profile.txt
+echo ===================================>>.\%4Profile2\Profile.txt
 type .\%4\Profile.txt
 echo New GameID Added!
 pause
